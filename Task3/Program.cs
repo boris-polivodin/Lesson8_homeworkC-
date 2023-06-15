@@ -12,7 +12,6 @@
 в которой элемент c[i,j]​ равен сумме произведений элементов i строки матрицы A на соответствующие элементы j столбца матрицы B:
 c[i,j]=a[i,1]*b[1,j] + a[i,2]*b[2,j] +...+ a[i,n]*b[n,j]
 */
-using System.Collections.Generic;
 
 class Program {
     public static void Main(string[] args) {
