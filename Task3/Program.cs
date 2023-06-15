@@ -17,7 +17,16 @@ using System.Collections.Generic;
 class Program {
     public static void Main(string[] args) {
         var ArrayCollection = GetArrays();
-        MultiplyArrays(ArrayCollection["firstArray"], ArrayCollection["secondArray"]);
+        // Произведение матрицы A размера m×n и матрицы B размера n×k — это матрица C размера m×k
+        int[,] resultArray = new int[ArrayCollection["firstArray"].GetLength(0), ArrayCollection["secondArray"].GetLength(1)];
+        MultiplyArrays(ArrayCollection["firstArray"], ArrayCollection["secondArray"], resultArray);
+        
+        Console.WriteLine("Первая матрца:");
+        PrintMatrix(ArrayCollection["firstArray"]);
+        Console.WriteLine("Вторая матрица:");
+        PrintMatrix(ArrayCollection["secondArray"]);
+        Console.WriteLine("Произведение матриц:");
+        PrintMatrix(resultArray);
     }
 
     static Dictionary<string, int[,]> GetArrays() {
@@ -27,6 +36,7 @@ class Program {
         int countCol = rand.Next(lowerLmit, upperLimit);
         int[,] firstArray = new int[rand.Next(lowerLmit, upperLimit), countCol];
         FillArray(firstArray);
+        // Матрицу P можно умножить на матрицу K только в том случае, если число столбцов матрицы P равняется числу строк матрицы K.
         int[,] secondArray = new int[countCol, rand.Next(lowerLmit, upperLimit)];
         FillArray(secondArray);
         return new Dictionary<string, int[,]>() {["firstArray"] = firstArray, ["secondArray"] = secondArray};
@@ -50,9 +60,7 @@ class Program {
             Console.WriteLine();
         }
     }
-    static void MultiplyArrays(int[,] firstArray, int[,] secondArray) {
-        // Произведение матрицы A размера m×n и матрицы B размера n×k — это матрица C размера m×k
-        int[,] resultArray = new int[firstArray.GetLength(0), secondArray.GetLength(1)];
+    static void MultiplyArrays(int[,] firstArray, int[,] secondArray, int[,] resultArray) {
         // c[m,k]=a[m,1]*b[1,k] + a[m,2]*b[2,k] +...+ a[m,n]*b[n,k]
         for (int m = 0; m < firstArray.GetLength(0); m++) {
             for (int k = 0; k < secondArray.GetLength(1); k++) {
@@ -61,11 +69,5 @@ class Program {
                 }
             }
         }
-        Console.WriteLine("Первая матрца:");
-        PrintMatrix(firstArray);
-        Console.WriteLine("Вторая матрица:");
-        PrintMatrix(secondArray);
-        Console.WriteLine("Произведение матриц:");
-        PrintMatrix(resultArray);
     }
 }
